@@ -1,7 +1,7 @@
-package com.m0d.employeesystem.rest;
+package com.m0d.employee_crud_app_spring_data_jpa.rest;
 
-import com.m0d.employeesystem.entity.Employee;
-import com.m0d.employeesystem.service.EmployeeService;
+import com.m0d.employee_crud_app_spring_data_jpa.entity.Employee;
+import com.m0d.employee_crud_app_spring_data_jpa.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,34 +13,35 @@ public class EmployeeRestController {
 
     EmployeeService employeeService;
 
-    // quick and dirty employeeDAO injection using contractor injection
     @Autowired
-    public EmployeeRestController(EmployeeService employeeService){
+    EmployeeRestController(EmployeeService employeeService){
         this.employeeService = employeeService;
     }
 
-    @GetMapping("/employee")
+    @GetMapping("/employees")
     public List<Employee> getEmployee(){
         return employeeService.findAll();
     }
 
-    @GetMapping("/employee/{employeeId}")
+    @GetMapping("/employees/{employeeId}")
     public Employee getEmployeeById(@PathVariable int employeeId){
-        return employeeService.getById(employeeId);
+       return employeeService.getById(employeeId);
     }
 
-    @PostMapping("employee")
+    @PostMapping("/employees")
     public Employee addEmployee(@RequestBody Employee employee){
         return employeeService.save(employee);
     }
 
-    @PutMapping("/employee")
+    @PutMapping("/employees")
     public Employee updateEmployee(@RequestBody Employee employee){
         return employeeService.update(employee);
     }
 
-    @DeleteMapping("/employee/{employeeId}")
-    public String deleteEmployeeById(@PathVariable int employeeId){
-        return employeeService.delete(employeeId);
+    @DeleteMapping("/employees/{employeeId}")
+    public String deleteEmployee(@PathVariable int employeeId){
+        employeeService.delete(employeeId);
+        return "Employee who has id:" + employeeId + " has been deleted successfully." ;
     }
+
 }
