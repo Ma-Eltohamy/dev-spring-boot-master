@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Sign in</title>
+</head>
+<body>
+<form method="post" th:action="@{/welcome}" th:object="${student}">
+  <h2>Sign in Student</h2>
+  <label>
+    first name:
+  </label>
+  <input type="text" placeholder="Enter your first name" name="firstName" th:field="*{firstName}">
+  <br>
+  <br>
+  <label>
+    last name:
+  </label>
+  <input type="text" placeholder="Enter your first name" name ="lastName" th:field="*{lastName}">
+
+  <br>
+  <br>
+  <label>
+    Country:
+  </label>
+
+  <select th:field="*{country}">
+    <option th:each="country : ${countriesList}"
+            th:value="${country}" th:text="${country}"></option>
+  </select>
+  <br>
+  <br>
+
+  <span>Favorite Programming Language</span>
+  <div th:each="language : ${languagesList}">
+    <input type="radio" th:id="${language}" th:name="fav_language" th:value="${language}" th:field="*{favLanguage}">
+    <label th:for="${language}" th:text="${language}"></label>
+  </div>
+
+  <br>
+  <span>Favorite Operating System</span>
+  <div th:each="operatingSystem : ${operationSystemsList}">
+    <input type="checkbox" th:id="${operatingSystem}" th:name="fav_os" th:value="${operatingSystem}" th:field="*{favOperatingSystem}">
+    <label th:for="${operatingSystem}" th:text="${operatingSystem}"></label>
+  </div>
+
+  <input type="submit" value="Sign in"/>
+</form>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Registration Form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<form method="post" th:object="${customer}" th:action="@{/processForm}">
+    <label>First name: </label>
+    <input type="text" th:field="*{firstName}">
+    <span th:if="${#fields.hasErrors('firstName')}"
+          th:text="${#fields.errors('firstName').get(0)}"
+          class="error"></span>
+    <br>
+    <br>
+    <label>Last name: </label>
+    <input type="text" th:field="*{lastName}">
+
+    <span th:if="${#fields.hasErrors('lastName')}"
+          th:text="${#fields.errors('lastName').get(0)}"
+          class="error"></span>
+
+    <br>
+    <br>
+    <label>Email: </label>
+    <input type="text" th:field="*{email}">
+
+    <span th:if="${#fields.hasErrors('email')}"
+          th:text="${#fields.errors('email').get(0)}"
+          class="error"></span>
+    <br>
+    <br>
+
+    <label>freePasses: </label>
+    <input type="text" th:field="*{freePasses}">
+    <span th:if="${#fields.hasErrors('freePasses')}"
+          th:text="${#fields.errors('freePasses').get(0)}"
+          class="error"></span>
+    <br>
+    <br>
+    <label>postal code: </label>
+    <input type="text" th:field="*{postalCode}">
+    <span th:if="${#fields.hasErrors('postalCode')}"
+          th:text="${#fields.errors('postalCode').get(0)}"
+          class="error"></span>
+    <br>
+    <br>
+    <label>Course code: </label>
+    <input type="text" th:field="*{courseCode}">
+    <span th:if="${#fields.hasErrors('courseCode')}"
+          th:text="${#fields.errors('courseCode').get(0)}"
+          class="error"></span>
+    <br>
+    <br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

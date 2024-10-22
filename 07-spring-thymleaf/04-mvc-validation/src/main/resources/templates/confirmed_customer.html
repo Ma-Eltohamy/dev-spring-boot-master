@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome Customer</title>
+</head>
+<body>
+
+<p>The customer is confirmed:
+  <span th:text="${customer.firstName} + ' ' + ${customer.lastName}"></span>
+</p>
+
+<p>Your Email Address is:
+    <span th:text="${customer.email}"></span>
+</p>
+</body>
+</html>

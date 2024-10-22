@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>first MVC form</title>
+</head>
+<body>
+<form method="post" th:action="@{/processFormV2}">
+    <label>
+        <input name="studentName" required type="text" placeholder="What's your name?"/>
+    </label>
+    <input type="submit" value="SubmitQuery"/>
+</form>
+</body>
+</html>

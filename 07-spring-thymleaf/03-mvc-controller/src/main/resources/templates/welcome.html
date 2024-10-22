@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signed in student</title>
+</head>
+<body>
+<h2>Welcome, Student</h2>
+<p th:text="'Your name is ' + ${student.firstName} + ' ' + ${student.lastName}"></p>
+<br>
+<p>Your Country is: </p>
+<span th:text="${student.country}"></span>
+<br>
+<P>Your Favorite Operating System is: </P>
+<span th:text="${student.favLanguage}"></span>
+<br>
+
+<P>Favorite Operating System: </P>
+<ul>
+    <li th:each="os : ${student.favOperatingSystem}" th:text="${os}"></li>
+</ul>
+
+</body>
+</html>
