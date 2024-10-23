@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Save Employee</title>
+  <link rel="stylesheet" th:href="@{/css/update_employee.css}" />
+</head>
+<body>
+
+<div class="container">
+  <h2>Save Employee</h2>
+
+  <form th:action="@{/processSaving}" th:object="${employee}" method="post" class="form-container">
+
+    <div class="form-group">
+      <label for="userName">User Name</label>
+      <input type="text" id="userName" th:field="*{userName}" class="form-control"/>
+
+      <span th:if="${#fields.hasErrors('userName')}"
+            th:text="${#fields.errors('userName').get(0)}"
+            class="error"></span>
+    </div>
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" th:field="*{firstName}" class="form-control"/>
+
+      <span th:if="${#fields.hasErrors('firstName')}"
+            th:text="${#fields.errors('firstName').get(0)}"
+            class="error"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" th:field="*{lastName}" class="form-control"/>
+
+      <span th:if="${#fields.hasErrors('lastName')}"
+            th:text="${#fields.errors('lastName').get(0)}"
+            class="error"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" th:field="*{email}" class="form-control"/>
+
+      <span th:if="${#fields.hasErrors('email')}"
+            th:text="${#fields.errors('email').get(0)}"
+            class="error"></span>
+    </div>
+
+    <div class="form-group button-group">
+      <button type="submit" class="btn btn-update">Save</button>
+      <a th:href="@{/}" class="btn btn-cancel">Cancel</a>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>
