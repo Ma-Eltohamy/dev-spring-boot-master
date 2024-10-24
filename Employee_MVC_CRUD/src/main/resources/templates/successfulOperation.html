@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Operation Successful</title>
+    <link rel="stylesheet" th:href="@{/css/successfulOperation.css}" />
+</head>
+<body>
+
+<div class="container">
+    <div class="success-message">
+        <h2 th:text="${operationMessage}"></h2>
+        <a href="#" th:href="@{/employees/list}" class="btn btn-back">Back to Employee List</a>
+    </div>
+</div>
+
+</body>
+</html>

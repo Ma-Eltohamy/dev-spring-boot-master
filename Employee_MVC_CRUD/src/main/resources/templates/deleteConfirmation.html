@@ -19,8 +19,11 @@
             </div>
 
             <div class="button-group">
-                <form method="post" th:action="@{/processDeletion}">
-                    <input type="hidden" name="employeeId" th:value="${employee.id}">
+<!--                with @RequestParam at the controller-->
+                <form method="get" th:action="@{/employees/processDeletionGet(employeeId=${employee.id})}">
+<!--                <form method="get" th:action="@{'/employees/processDeletionGet/' + ${employee.id}}">-->
+<!--                <form method="post" th:action="@{/employees/processDeletion}">-->
+<!--                    <input type="hidden" name="employeeId" th:value="${employee.id}">-->
                     <button type="submit" class="btn btn-delete">Delete</button>
                 </form>
                 <a href="#" th:href="@{/}" class="btn btn-cancel">Cancel</a>

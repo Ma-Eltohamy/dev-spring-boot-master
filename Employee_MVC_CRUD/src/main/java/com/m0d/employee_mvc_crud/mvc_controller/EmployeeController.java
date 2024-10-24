@@ -12,6 +12,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/employees")
 public class EmployeeController {
 
     EmployeeService employeeService;
@@ -27,61 +28,79 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("/")
-    public String getEmployees(Model model){
-        // I know that I am passing the passwords also to the View
-        model.addAttribute("employeesList", employeeService.findAll());
+    // Listing all the employees
+
+    @GetMapping("/list")
+    public String listEmployees(Model model){
+        model.addAttribute("employeesList", employeeService.findAllSortedByFirstName());
+
+        // Instead of calling the db to get the employee by ID
         model.addAttribute("employeeDTO", new Employee());
-        return "home";
+        return "list";
     }
 
-    @PostMapping("/update")
-    public String updateEmployee(@ModelAttribute("employee") Employee employee){
-        return "update_employee";
+    // Adding a new Employee
+
+    @GetMapping("/showAddForm")
+    public String addEmployee(Model model){
+        model.addAttribute("employee", new Employee());
+        model.addAttribute("operation", "Add");
+        return "employeeForm";
     }
 
-    @PostMapping("/processUpdate")
-    public String processUpdate(@Valid @ModelAttribute Employee employee, BindingResult bindingResult){
+    // Adding a new Employee
 
-        System.out.println(bindingResult.toString());
+    @PostMapping("/showUpdateForm")
+    public String updateEmployee(@ModelAttribute("employee") Employee employee, Model model){
+        model.addAttribute("operation", "Update");
+        return "employeeForm";
+    }
 
+
+    // Processing the adding operation
+
+    @PostMapping("/processOperation")
+    public String processOperation(@Valid @ModelAttribute Employee employee, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors())
-            return "update_employee";
+            return "employeeForm";
 
-        employeeService.update(employee);
-        return "successful_update";
+        String operationMessage;
+
+        if(employee.getId() == null)  // This is an adding operation
+            operationMessage = "Employee has been added to the system successfully!";
+        else
+            operationMessage = "Employee has been updated successfully!";
+
+        model.addAttribute("operationMessage", operationMessage);
+
+        employeeService.save(employee);
+        return "successfulOperation";
     }
 
-    @PostMapping("/delete")
+
+    // Deleting an Employee
+    // I will post the employee data through a post mapping to avoid getting it from the db
+    // because I still know nothing about caching
+    @PostMapping("/deleteConfirmation")
     public String deleteEmployee(@ModelAttribute("employee") Employee employee){
-        return "delete_confirmation";
+        return "deleteConfirmation";
     }
 
     @PostMapping("/processDeletion")
-    public String processDeletion(@RequestParam("employeeId") Integer employeeId){
-        System.out.println(employeeId);
-
+    public String processDeletion(@RequestParam("employeeId") Integer employeeId, Model model){
         employeeService.delete(employeeId);
-        return "successful_deletion";
+        String operationMessage = "The employee have been successfully deleted.";
+        model.addAttribute("operationMessage", operationMessage);
+        return "successfulOperation";
     }
 
-    @GetMapping("/addEmployee")
-    public String addEmployee(Model model){
-        model.addAttribute("employee", new Employee());
-        return "add_employee";
+    // In case you want to use url to delete you can use this
+    @GetMapping("/processDeletionGet/")
+    public String processDeletionGet(@RequestParam("employeeId") Integer employeeId, Model model){
+        employeeService.delete(employeeId);
+        String operationMessage = "The employee have been successfully deleted.";
+        model.addAttribute("operationMessage", operationMessage);
+        return "successfulOperation";
     }
 
-    @PostMapping("/processSaving")
-    public String processSaving(@Valid @ModelAttribute Employee employee, BindingResult bindingResult){
-
-        System.out.println(employee.getUserName());
-        System.out.println(employee.getFirstName() + ' ' + employee.getLastName());
-        System.out.println(employee.getEmail());
-
-        if(bindingResult.hasErrors())
-            return "add_employee";
-
-        employeeService.add(employee);
-        return "successful_update";
-    }
 }

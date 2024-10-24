@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Directory</title>
-    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/list.css}">
 </head>
 <body>
 
 <div class="container">
     <h1>Employee Directory</h1>
-    <a th:href="@{/addEmployee}" class="btn btn-add">Add Employee</a>
+    <a th:href="@{/employees/showAddForm}" class="btn btn-add">Add Employee</a>
 
     <table class="employee-table">
         <thead>
@@ -29,7 +29,7 @@
             <td th:text="${employee.lastName}"></td>
             <td th:text="${employee.email}"></td>
             <td>
-                <form th:action="@{/update}" th:object="${employeeDTO}" method="post" style="display:inline;">
+                <form th:action="@{/employees/showUpdateForm}" th:object="${employeeDTO}" method="post" style="display:inline;">
                     <input type="hidden" name="id" th:value="${employee.id}">
                     <input type="hidden" name="userName" th:value="${employee.userName}">
                     <input type="hidden" name="firstName" th:value="${employee.firstName}">
@@ -37,7 +37,7 @@
                     <input type="hidden" name="email" th:value="${employee.email}">
                     <button type="submit" class="btn btn-update">Update</button>
                 </form>
-                <form th:action="@{/delete}" th:object="${employeeDTO}" method="post" style="display:inline;">
+                <form th:action="@{/employees/deleteConfirmation}" th:object="${employeeDTO}" method="post" style="display:inline;">
                     <input type="hidden" name="id" th:value="${employee.id}">
                     <input type="hidden" name="userName" th:value="${employee.userName}">
                     <input type="hidden" name="firstName" th:value="${employee.firstName}">

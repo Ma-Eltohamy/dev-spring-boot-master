@@ -23,18 +23,17 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Employee update(Employee employee){
-        return employeeRepository.save(employee);
-    }
-
-    public Employee add(Employee employee){
-        return employeeRepository.save(employee);
+    public void save(Employee employee){
+        employeeRepository.save(employee);
     }
 
     public void delete(Integer employeeId){
         employeeRepository.deleteById(employeeId);
     }
 
+    public List<Employee> findAllSortedByFirstName(){
+        return employeeRepository.findAllByOrderByFirstNameAsc();
+    }
 
 
 
